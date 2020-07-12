@@ -1,9 +1,8 @@
-use std::f64::consts::FRAC_PI_2;
+use std::f64::consts::PI;
 
-const LOWER_RADIUS: f64 = 0.0;
-const HEATING_RADIUS: f64 = 0.4;
+const LOWER_RADIUS: f64 = 0.18;
 const UPPER_RADIUS: f64 = 0.6;
-const HEATING_HEIGHT: f64 = 0.2;
+const HEATING_HEIGHT: f64 = 0.15;
 const N_PANELS: i32 = 12;
 
 // This function is used to print numbers to 2 decimal places.
@@ -26,19 +25,14 @@ fn length(b: f64, x: f64) -> f64 {
 }
 
 fn main() {
-
-    // p is the heating height above zero
-    let p = ((HEATING_RADIUS * HEATING_RADIUS) - (LOWER_RADIUS * LOWER_RADIUS))
-          / (4.0 * HEATING_HEIGHT);
-
     // y = b x^2
-    let b = 1.0 / (4.0 * p);
+    let b = 1.0 / (4.0 * HEATING_HEIGHT);
 
-    println!("p {}, b {}", p, b);
+    println!("p {}, b {}", HEATING_HEIGHT, b);
 
 
-    let angle_sum = (N_PANELS as f64 - 2.0) * FRAC_PI_2;
-    let half_angle = angle_sum / (2.0 * N_PANELS as f64);
+    let angle = ((N_PANELS as f64 - 2.0) / (N_PANELS as f64)) * PI;
+    let half_angle = angle / 2.0;
 
     println!("half angle {}", half_angle);
 
@@ -46,7 +40,7 @@ fn main() {
     let invisible_length = length(b, LOWER_RADIUS);
 
 
-    let increment_size = (UPPER_RADIUS - LOWER_RADIUS) / 200.0;
+    let increment_size = (UPPER_RADIUS - LOWER_RADIUS) / 40.0;
     let mut x = LOWER_RADIUS;
 
 
