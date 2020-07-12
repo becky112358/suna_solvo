@@ -6,6 +6,8 @@ const UPPER_RADIUS: f64 = 0.6;
 const HEATING_HEIGHT: f64 = 0.2;
 const N_PANELS: i32 = 12;
 
+// This function is used to print numbers to 2 decimal places.
+// Probably there is a better way to do that?!
 fn truncate(long: f64) -> f64 {
     let bigger = long * 100.0;
     let integer = bigger.round() as i32;
@@ -53,8 +55,11 @@ fn main() {
 
         let w = (2.0 * x) / (half_angle.tan());
 
-        println!("x {:>width$}   length {:>width$}   width {:>width$}",
-            truncate(x), truncate(t), truncate(w), width=6);
+        let y = b * x * x;
+
+        println!(
+      "x {:>width$}   length {:>width$}   width {:>width$}   height {:>width$}",
+            truncate(x), truncate(t), truncate(w), truncate(y), width=6);
 
         x += increment_size;
     }
