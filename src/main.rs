@@ -5,12 +5,12 @@ const UPPER_RADIUS: f64 = 0.6;
 const HEATING_HEIGHT: f64 = 0.15;
 const N_PANELS: i32 = 12;
 
-// This function is used to print numbers to 2 decimal places.
+// This function is used to print numbers to 3 decimal places.
 // Probably there is a better way to do that?!
 fn truncate(long: f64) -> f64 {
-    let bigger = long * 100.0;
+    let bigger = long * 1000.0;
     let integer = bigger.round() as i32;
-    integer as f64 / 100.0
+    integer as f64 / 1000.0
 }
 
 fn length(b: f64, x: f64) -> f64 {
