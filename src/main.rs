@@ -9,23 +9,45 @@ const HEATING_HEIGHT_M: f64 = 0.2;
 const N_PANELS: i32 = 12;
 
 fn main() {
-    // y = b x^2
-    let b = 1.0 / (4.0 * HEATING_HEIGHT_M);
-    println!("p {}, b {}", HEATING_HEIGHT_M, b);
+    let b = parabola_variable(HEATING_HEIGHT_M);
 
-
-    let angle = ((N_PANELS - 2) as f64 / (N_PANELS as f64)) * PI;
-    let half_angle = angle / 2.0;
-    println!("half angle {}", half_angle);
-
+    let half_angle = half_angle_of_regular_n_sided_polygon(N_PANELS);
 
     let invisible_length = length(b, LOWER_RADIUS_M);
 
+    iterate_over_x(
+        LOWER_RADIUS_M,
+        UPPER_RADIUS_M,
+        b,
+        half_angle,
+        invisible_length);
+}
 
-    let increment_size = (UPPER_RADIUS_M - LOWER_RADIUS_M) / 40.0;
-    let mut x = LOWER_RADIUS_M;
+fn parabola_variable(focus_point: f64) -> f64 {
+    // y = b x^2
+    let b = 1.0 / (4.0 * focus_point);
+    println!("p {}, b {}", focus_point, b);
+    return b;
+}
 
-    while x <= UPPER_RADIUS_M {
+fn half_angle_of_regular_n_sided_polygon(n_sides: i32) -> f64 {
+    let angle = ((n_sides - 2) as f64 / (n_sides as f64)) * PI;
+    let half_angle = angle / 2.0;
+    println!("half angle {}", half_angle);
+    return half_angle;
+}
+
+fn iterate_over_x(
+    x_start: f64,
+    x_finish: f64,
+    b: f64,
+    half_angle: f64,
+    invisible_length: f64) {
+
+    let increment_size = (x_finish - x_start) / 40.0;
+    let mut x = x_start;
+
+    while x <= x_finish {
         let t = length(b, x) - invisible_length;
 
         let w = (2.0 * x) / (half_angle.tan());
