@@ -1,17 +1,12 @@
 use std::f64::consts::PI;
 
-const LOWER_RADIUS: f64 = 0.18;
-const UPPER_RADIUS: f64 = 0.6;
-const HEATING_HEIGHT: f64 = 0.15;
+const LOWER_RADIUS_M: f64 = 0.0;
+const UPPER_RADIUS_M: f64 = 0.6;
+// Heating height above zero.
+// Note that if the lower radius is not zero, then the parabola will start
+// above zero.
+const HEATING_HEIGHT_M: f64 = 0.2;
 const N_PANELS: i32 = 12;
-
-// This function is used to print numbers to 3 decimal places.
-// Probably there is a better way to do that?!
-fn truncate(long: f64) -> f64 {
-    let bigger = long * 1000.0;
-    let integer = bigger.round() as i32;
-    integer as f64 / 1000.0
-}
 
 fn length(b: f64, x: f64) -> f64 {
     let u_squared = 1.0 + (4.0 * b * b * x * x);
@@ -26,34 +21,30 @@ fn length(b: f64, x: f64) -> f64 {
 
 fn main() {
     // y = b x^2
-    let b = 1.0 / (4.0 * HEATING_HEIGHT);
+    let b = 1.0 / (4.0 * HEATING_HEIGHT_M);
+    println!("p {}, b {}", HEATING_HEIGHT_M, b);
 
-    println!("p {}, b {}", HEATING_HEIGHT, b);
 
-
-    let angle = ((N_PANELS as f64 - 2.0) / (N_PANELS as f64)) * PI;
+    let angle = ((N_PANELS - 2) as f64 / (N_PANELS as f64)) * PI;
     let half_angle = angle / 2.0;
-
     println!("half angle {}", half_angle);
 
 
-    let invisible_length = length(b, LOWER_RADIUS);
+    let invisible_length = length(b, LOWER_RADIUS_M);
 
 
-    let increment_size = (UPPER_RADIUS - LOWER_RADIUS) / 40.0;
-    let mut x = LOWER_RADIUS;
+    let increment_size = (UPPER_RADIUS_M - LOWER_RADIUS_M) / 40.0;
+    let mut x = LOWER_RADIUS_M;
 
-
-    while x <= UPPER_RADIUS {
+    while x <= UPPER_RADIUS_M {
         let t = length(b, x) - invisible_length;
 
         let w = (2.0 * x) / (half_angle.tan());
 
         let y = b * x * x;
 
-        println!(
-      "x {:>width$}   length {:>width$}   width {:>width$}   height {:>width$}",
-            truncate(x), truncate(t), truncate(w), truncate(y), width=6);
+        println!("x {:>width$.ndp$}   length {:>width$.ndp$}   width {:>width$.ndp$}   height {:>width$.ndp$}",
+            x, t, w, y, width=6, ndp=3);
 
         x += increment_size;
     }
