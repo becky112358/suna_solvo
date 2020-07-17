@@ -8,17 +8,6 @@ const UPPER_RADIUS_M: f64 = 0.6;
 const HEATING_HEIGHT_M: f64 = 0.2;
 const N_PANELS: i32 = 12;
 
-fn length(b: f64, x: f64) -> f64 {
-    let u_squared = 1.0 + (4.0 * b * b * x * x);
-    let u = u_squared.sqrt();
-
-    if u < 1.0 {
-        println!("***** u is less than 1 *****");
-    }
-
-    (1.0 / (4.0 * b)) * (u.acosh() + ((u.acosh().sinh()) * u))
-}
-
 fn main() {
     // y = b x^2
     let b = 1.0 / (4.0 * HEATING_HEIGHT_M);
@@ -48,5 +37,16 @@ fn main() {
 
         x += increment_size;
     }
+}
+
+fn length(b: f64, x: f64) -> f64 {
+    let u_squared = 1.0 + (4.0 * b * b * x * x);
+    let u = u_squared.sqrt();
+
+    if u < 1.0 {
+        println!("***** u is less than 1 *****");
+    }
+
+    (1.0 / (4.0 * b)) * (u.acosh() + ((u.acosh().sinh()) * u))
 }
 
