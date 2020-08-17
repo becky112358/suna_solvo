@@ -1,10 +1,18 @@
 use std::f64::consts::PI;
 
+use suna_solvo::parabola_variable;
+
+// Heating height above zero.
+// Note that if the lower radius is not zero, then the parabola will start
+// above zero.
+const HEATING_HEIGHT_M: f64 = 0.5;
 const LOWER_RADIUS_M: f64 = 0.0;
 const UPPER_RADIUS_M: f64 = 1.0;
 const N_PANELS: i32 = 12;
 
-pub fn method_parabola_extended_to_a_plane(b: f64) {
+pub fn method_parabola_extended_to_a_plane() {
+    let b = parabola_variable(HEATING_HEIGHT_M);
+
     let half_angle = half_angle_of_regular_n_sided_polygon(N_PANELS);
 
     let invisible_length = parabola_length(b, LOWER_RADIUS_M);

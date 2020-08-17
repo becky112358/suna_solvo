@@ -1,8 +1,14 @@
 use std::f64::consts::PI;
 
+use suna_solvo::parabola_variable;
+
+// Heating height above zero.
+const HEATING_HEIGHT_M: f64 = 0.5;
 const UPPER_RADIUS_M: f64 = 1.0;
 
-pub fn method_cone_rings(b: f64) {
+pub fn method_cone_rings() {
+    let b = parabola_variable(HEATING_HEIGHT_M);
+
     let mut x0 = 0.05;
     println!("Base circle radius {:.ndp$}", x0, ndp=3);
 
