@@ -18,17 +18,17 @@ Note that for a solar oven, my paraboloid mirror does not have to collect the he
 
 Approximate a paraboloid by a series of cone slices. The first "cone" is actually a flat plane, and the "cone slice" is a circle.
 
-`
+```
  |     |
   \   /
    `-'
-`
+```
 
 ### Extend a Parabola to a Plane
 
 Approximate a paraboloid by a series of planes sections. Each plane section is cut to a computed `V` shape. If the `V` shapes are created correctly, when they are joined along the edges, the centre of each individual plane section should be pulled up to follow a parabola.
 
-`
+```
  \  |  /
   \ | /
    \|/
@@ -36,5 +36,5 @@ Approximate a paraboloid by a series of planes sections. Each plane section is c
    /|\
   / | \
  /  |  \
-`
+```
 
