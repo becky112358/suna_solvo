@@ -80,7 +80,7 @@ fn parabola_length(b: f64, x: f64) -> f64 {
 
 fn method_cone_rings(b: f64) {
     let mut x0 = 0.05;
-    println!("Base circle circumference {:.ndp$}", x0, ndp=3);
+    println!("Base circle radius {:.ndp$}", x0, ndp=3);
 
     while x0 < UPPER_RADIUS_M {
         let x1 = choose_x(b, x0);
@@ -92,8 +92,15 @@ fn method_cone_rings(b: f64) {
         let x0_circumference = circumference(x0);
         let x1_circumference = circumference(x1);
 
-        println!("Lower circumference {:>width$.ndp$}   Upper circumference {:>width$.ndp$}   Length {:>width$.ndp$}",
-            x0_circumference, x1_circumference, length, width=6, ndp=3);
+        let sector_radius = (x0_circumference * length)
+                          / (x1_circumference - x0_circumference);
+        let sector_angle_radians = (x1_circumference - x0_circumference)
+                                 / length;
+        let sector_angle_degrees = (sector_angle_radians * 180.0) / PI;
+
+        println!("Sector radius {:>w$.ndp$}  Length {:>w$.ndp$}  Sector angle {:>w$.ndp$}",
+            sector_radius, length, sector_angle_degrees,
+            w=5, ndp=3);
 
         x0 = x1;
     }
